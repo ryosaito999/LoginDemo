@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import {ServerMessages} from '../../../api/ServerMessages.js'
 import Message from './Message.jsx'
+import dateFormat from  'dateformat'
+
 
 class ChatApp extends Component {
   constructor(props){
@@ -39,7 +41,12 @@ class ChatApp extends Component {
 
     renderTasks() {
       return this.props.messages.map((message) => (
-        <Message key={message._id} message={message} username = {message.username} />
+        <Message
+          key={message._id}
+          message={message}
+          username = {message.username}
+          date = {message.createdAt}
+        />
       ));
     }
 

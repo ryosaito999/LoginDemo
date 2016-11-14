@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-
+import dateFormat from  'dateformat'
 export default class Message extends Component {
   constructor(props){
       super(props);
@@ -8,16 +8,15 @@ export default class Message extends Component {
   }
 
   render(){
+    let date = dateFormat(this.props.date , "dddd, mmmm dS, yyyy, h:MM:ss TT");
+
     return (
-        <li>{this.props.username +": " +  this.props.message.text}</li>
+
+        <li>{date + ":   " + this.props.username +" -> " +  this.props.message.text}</li>
     );
   }
 
 }
-
-// class Message extends Component{
-//
-// }
 
 Message.PropTypes = {
   message: PropTypes.object.isRequired,
