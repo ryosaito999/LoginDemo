@@ -21,7 +21,7 @@ export default class MainPage extends Component {
             { loggedIn ? 'Welcome '+currentUser.username : '' }
           </h1>
         </div>
-        <ChatApp />
+        <ChatApp currentUser = {currentUser}/>
       </div>
     );
   }

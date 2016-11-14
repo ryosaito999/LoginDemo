@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom';
+import { createContainer } from 'meteor/react-meteor-data';
+import {ServerMessages} from '../../../api/ServerMessages.js'
 import Message from './Message.jsx'
-export default class ChatApp extends Component {
+
+class ChatApp extends Component {
   constructor(props){
       super(props);
       this.state = {
@@ -11,9 +15,19 @@ export default class ChatApp extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    alert("Entered form");
+    // Find the text field via the React ref
+    const text = ReactDOM.findDOMNode(this.refs.messageInput).value.trim();
+
+    ServerMessages.insert({
+      text,
+      createdAt: new Date(), // current time
+      username: this.props.currentUser.username,
+    });
+
+    // Clear form
+    ReactDOM.findDOMNode(this.refs.messageInput).value = '';
   }
-  
+
 
   getTasks() {
       return [
@@ -24,8 +38,8 @@ export default class ChatApp extends Component {
     }
 
     renderTasks() {
-      return this.getTasks().map((message) => (
-        <Message key={message._id} message={message} />
+      return this.props.messages.map((message) => (
+        <Message key={message._id} message={message} username = {message.username} />
       ));
     }
 
@@ -40,6 +54,7 @@ export default class ChatApp extends Component {
           <div className="form-group">
             <input type="text"
                   id="message-input"
+                  ref="messageInput"
                   className="form-control input-lg"
                   placeholder="Enter message here"/>
           </div>
@@ -59,5 +74,13 @@ export default class ChatApp extends Component {
   }
 }
 
-ChatApp.PropTypes = {
-}
+ChatApp.propTypes = {
+  messages: PropTypes.array.isRequired,
+};
+
+
+export default createContainer(() => {
+  return {
+    messages: ServerMessages.find({}).fetch(),
+  };
+}, ChatApp);

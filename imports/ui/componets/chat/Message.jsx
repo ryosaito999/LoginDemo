@@ -9,7 +9,7 @@ export default class Message extends Component {
 
   render(){
     return (
-        <li>{this.props.message.text}</li>
+        <li>{this.props.username +": " +  this.props.message.text}</li>
     );
   }
 
