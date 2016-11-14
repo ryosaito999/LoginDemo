@@ -30,7 +30,7 @@ class ChatApp extends Component {
   }
 
   getPlayerTime(){
-    
+
   }
 
   renderTasks() {
@@ -71,10 +71,6 @@ class ChatApp extends Component {
         <Player/>
 
       </div>
-
-
-
-    //need a form to submit messages
     );
   }
 }
