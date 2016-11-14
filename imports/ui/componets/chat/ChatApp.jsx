@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import {ServerMessages} from '../../../api/ServerMessages.js'
 import Message from './Message.jsx'
+import Player from '../player/Player.jsx'
 
 class ChatApp extends Component {
   constructor(props){
@@ -26,6 +27,10 @@ class ChatApp extends Component {
 
     // Clear form
     ReactDOM.findDOMNode(this.refs.messageInput).value = '';
+  }
+
+  getPlayerTime(){
+    
   }
 
   renderTasks() {
@@ -62,7 +67,11 @@ class ChatApp extends Component {
                   value="Login" />
           </div>
         </form>
+
+        <Player/>
+
       </div>
+
 
 
     //need a form to submit messages
