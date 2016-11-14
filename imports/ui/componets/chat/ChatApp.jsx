@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import {ServerMessages} from '../../../api/ServerMessages.js'
 import Message from './Message.jsx'
-import dateFormat from  'dateformat'
-
 
 class ChatApp extends Component {
   constructor(props){
@@ -30,25 +28,16 @@ class ChatApp extends Component {
     ReactDOM.findDOMNode(this.refs.messageInput).value = '';
   }
 
-
-  getTasks() {
-      return [
-        { _id: 1, text: 'This is task 1' },
-        { _id: 2, text: 'This is task 2' },
-        { _id: 3, text: 'This is task 3' },
-      ];
-    }
-
-    renderTasks() {
-      return this.props.messages.map((message) => (
-        <Message
-          key={message._id}
-          message={message}
-          username = {message.username}
-          date = {message.createdAt}
-        />
-      ));
-    }
+  renderTasks() {
+    return this.props.messages.map((message) => (
+      <Message
+        key={message._id}
+        message={message}
+        username = {message.username}
+        date = {message.createdAt}
+      />
+    ));
+  }
 
   render(){
     return (
@@ -88,6 +77,6 @@ ChatApp.propTypes = {
 
 export default createContainer(() => {
   return {
-    messages: ServerMessages.find({}).fetch(),
+    messages: ServerMessages.find({}, sort({createdAt: -1}) ).fetch(),
   };
 }, ChatApp);
