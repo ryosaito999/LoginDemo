@@ -77,6 +77,6 @@ ChatApp.propTypes = {
 
 export default createContainer(() => {
   return {
-    messages: ServerMessages.find({}, sort({createdAt: -1}) ).fetch(),
+    messages: ServerMessages.find({}, { sort: { createdAt: -1 } }).fetch(),
   };
 }, ChatApp);
