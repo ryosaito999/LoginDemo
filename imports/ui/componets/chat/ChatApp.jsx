@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import MessageList from './MessageList.jsx'
+import Message from './Message.jsx'
 export default class ChatApp extends Component {
   constructor(props){
       super(props);
@@ -13,12 +13,28 @@ export default class ChatApp extends Component {
     e.preventDefault();
     alert("Entered form");
   }
+  
 
+  getTasks() {
+      return [
+        { _id: 1, text: 'This is task 1' },
+        { _id: 2, text: 'This is task 2' },
+        { _id: 3, text: 'This is task 3' },
+      ];
+    }
+
+    renderTasks() {
+      return this.getTasks().map((message) => (
+        <Message key={message._id} message={message} />
+      ));
+    }
 
   render(){
     return (
       <div>
-        <MessageList />
+        <ul>
+          {this.renderTasks()}
+        </ul>
         <form id = "message-form" onSubmit = {this.handleSubmit}>
           Enter Message here
           <div className="form-group">

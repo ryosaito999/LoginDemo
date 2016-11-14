@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-export default class MessageList extends Component {
+export default class Message extends Component {
   constructor(props){
       super(props);
       this.state = {
@@ -9,7 +9,7 @@ export default class MessageList extends Component {
 
   render(){
     return (
-      <h1> messages go here</h1>
+        <li>{this.props.message.text}</li>
     );
   }
 
@@ -19,5 +19,7 @@ export default class MessageList extends Component {
 //
 // }
 
-MessageList.PropTypes = {
+Message.PropTypes = {
+  message: PropTypes.object.isRequired,
+
 }
