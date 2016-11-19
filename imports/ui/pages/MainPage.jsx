@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 import ChatApp from '../componets/chat/ChatApp.jsx'
+import Player from '../componets/player/Player.jsx'
 
 export default class MainPage extends Component {
   constructor(props){
@@ -22,6 +23,7 @@ export default class MainPage extends Component {
           </h1>
         </div>
         <ChatApp currentUser = {currentUser}/>
+        <Player/>
       </div>
     );
   }

@@ -67,12 +67,10 @@ class ChatApp extends Component {
                   value="Login" />
           </div>
         </form>
-
-        <Player/>
-
       </div>
     );
   }
+
 }
 
 ChatApp.propTypes = {
