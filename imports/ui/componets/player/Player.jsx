@@ -1,7 +1,87 @@
 import YouTube from 'react-youtube'
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom';
+import { ServerRooms  } from '../../../api/ServerRooms.js'
 
-export default class ChatApp extends Component {
+export default class Player extends Component {
+
+  upsertTestRoom(){
+
+  }
+
+  constructor(props){
+    super(props);
+    this.state = {
+      currentVideoId: '',
+      player: null,
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onReady = this.onReady.bind(this);
+    this.onChangeVideo = this.onChangeVideo.bind(this);
+    this.onPlayVideo = this.onPlayVideo.bind(this);
+    this.onPauseVideo = this.onPauseVideo.bind(this);
+    this.onEndVideo = this.onEndVideo.bind(this)
+  }
+
+
+  verifyLink(url){
+    var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+
+    if (match && match[2].length == 11) {
+      return match[2];
+    }
+
+    else{
+      return "";
+    }
+  }
+
+  changeVideo(url){
+    //use regex to check if youtube link and extract data
+    //http://www.youtube.com/watch?v=u8nQa1cJyX8
+    let youtube_id = this.verifyLink(url);
+
+    //need to tell server what current video is
+
+
+    if(youtube_id){
+      this.setState({
+          currentVideoId : youtube_id
+      });
+    }
+
+    else{
+      console.log("invalid url")
+    }
+
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    const text = ReactDOM.findDOMNode(this.refs.linkInput).value.trim();
+    this.changeVideo(text);
+    //console.log("Link: "+ text);
+  }
+
+  onChangeVideo(videoId){
+
+  }
+
+  onPlayVideo(){
+
+  }
+
+  onPauseVideo(){
+
+  }
+
+  onEndVideo(){
+
+  }
+
+
 
   render(){
     const opts = {
@@ -12,13 +92,20 @@ export default class ChatApp extends Component {
       }
     };
 
+    //render black screen if no video is slected
+    //render video if videoID exists
     return (
     <div>
+
+
       <YouTube
-        videoId="2g811Eo7K8U"
+        videoId={this.state.currentVideoId}
         opts={opts}
-        onReady={this._onReady}
+        onReady={this.onReady}
       />
+
+
+
 
       <form id = "message-form" onSubmit = {this.handleSubmit}>
         <div className="form-group">
@@ -42,8 +129,10 @@ export default class ChatApp extends Component {
     );
   }
 
-  _onReady(event) {
+  onReady(event) {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();
+
   }
+
 }
